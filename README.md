@@ -122,7 +122,7 @@ Before({ tags: "@CP001" }, async function () {
 ## Generating and Viewing Reports
 1. After running tests, generate the Allure report:
    ```bash
-   npm run allure:report
+   npm run allure:generate
    ```
 2. Open the report in your browser:
    ```bash

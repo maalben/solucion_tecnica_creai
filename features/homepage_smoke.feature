@@ -19,7 +19,6 @@ Feature: Smoke Test - Public Creai Homepage
       | Knowledge hub   |
     And the homepage cards section should display the following titles:
       | Transforming customer support with a bespoke AI Logistics Agent                |
-      | Streamlining entry management with AI for faster, safer operations             |
       | Streamlining operations and maximizing revenue with an AI Travel Agent         |
       | Accelerating growth through seamless integration and strategic AI innovation   |
 
@@ -29,7 +28,6 @@ Feature: Smoke Test - Public Creai Homepage
     When the user clicks on the "Success stories" menu option
     Then the cards section should display the following titles:
       | Transforming customer support with a bespoke AI Logistics Agent                |
-      | Streamlining entry management with AI for faster, safer operations             |
       | Streamlining operations and maximizing revenue with an AI Travel Agent         |
       | Accelerating growth through seamless integration and strategic AI innovation   |
 

@@ -1,3 +1,5 @@
+export const ERROR_CARD_TITLES_COUNT = (expectedCount: number, visibleCount: number, expected: string[], visible: string[]) =>
+  `Expected ${expectedCount} card titles, but only found ${visibleCount}.\nExpected: ${JSON.stringify(expected)}\nVisible: ${JSON.stringify(visible)}`;
 export const CUSTOM_DEVICE_NAME = 'iPhone X';
 export const ERROR_CONSOLE_ERRORS = (errors: string[]) => `Errors detected :\n${errors.join("\n")}`;
 export const ERROR_MENU_OPTION_SELECTOR = (option: string) => `Menu option selector not found: ${option}`;
