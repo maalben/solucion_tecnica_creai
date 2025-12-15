@@ -21,6 +21,7 @@ Feature: Smoke Test - Public Creai Homepage
       | Transforming customer support with a bespoke AI Logistics Agent                |
       | Streamlining operations and maximizing revenue with an AI Travel Agent         |
       | Accelerating growth through seamless integration and strategic AI innovation   |
+      | Transforming fleet operations through intelligent automation and predictive intelligence |
 
   @CP003
   Scenario: Navigation - Success stories menu
@@ -30,10 +31,11 @@ Feature: Smoke Test - Public Creai Homepage
       | Transforming customer support with a bespoke AI Logistics Agent                |
       | Streamlining operations and maximizing revenue with an AI Travel Agent         |
       | Accelerating growth through seamless integration and strategic AI innovation   |
+      | Transforming fleet operations through intelligent automation and predictive intelligence |
 
   @CP004
   Scenario: Mobile viewport - key elements visible
-    Given the user opens the public homepage in mobile mode with device "iPhone X"
+    Given the user opens the public homepage in mobile mode with device "iPhone 12"
      When the user opens the mobile menu
      Then the main menu should have the options:
       | Services        |
