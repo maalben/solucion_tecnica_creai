@@ -1,4 +1,4 @@
-import { ERROR_NO_CARD_TITLES, ERROR_CARD_TITLES_MISMATCH } from "../utilities/Constants";
+import { ERROR_NO_CARD_TITLES, ERROR_CARD_TITLES_MISMATCH, ERROR_CARD_TITLES_COUNT } from "../utilities/Constants";
 import { arraysHaveSameElements } from "../utilities/utils";
 import { CardTitles } from "./CardTitles";
 
@@ -17,6 +17,9 @@ export class CardTitlesMatch {
         }
         if (visibleTitles.length === 0) {
           throw new Error(ERROR_NO_CARD_TITLES);
+        }
+        if (visibleTitles.length < expectedTitles.length) {
+          throw new Error(ERROR_CARD_TITLES_COUNT(expectedTitles.length, visibleTitles.length, expectedTitles, visibleTitles));
         }
         if (!arraysHaveSameElements(expectedTitles, visibleTitles)) {
           throw new Error(ERROR_CARD_TITLES_MISMATCH(expectedTitles, visibleTitles));
