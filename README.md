@@ -1,19 +1,35 @@
-# Buenas prácticas, organización y ejecución selectiva
+# Best Practices, Organization, and Selective Execution
 
-## Organización y buenas prácticas
-- **Patrón Screenplay:** Todas las interacciones y validaciones están encapsuladas en Tasks y Questions reutilizables, facilitando el mantenimiento y la extensión de los tests.
-- **Selectores y mensajes centralizados:** Los selectores y mensajes de error se encuentran en archivos de constantes (`src/screenplay/utilities/Constants.ts` y `src/screenplay/ui/HomePage.ts`), evitando valores hardcodeados.
-- **Utilidades compartidas:** Funciones de utilidad para normalización y comparación de arrays están en `src/screenplay/utilities/utils.ts`.
-- **Hooks globales:** Los hooks de Cucumber (`features/support/hooks.ts`) gestionan la inicialización, captura de errores de consola y screenshots automáticos en fallos.
-- **Timeout global:** El timeout global de steps se configura en `features/support/timeout.js` usando ES Modules.
-- **Escenarios claros y separados:** Cada escenario Gherkin valida un objetivo específico, siguiendo los requerimientos del reto y facilitando la trazabilidad.
+## Organization and Best Practices
+- **Screenplay Pattern:** All interactions and validations are encapsulated in reusable Tasks and Questions, making tests easy to maintain and extend.
+- **Centralized selectors and messages:** Selectors and error messages are stored in constants files (`src/screenplay/utilities/Constants.ts` and `src/screenplay/ui/HomePage.ts`), avoiding hardcoded values.
+- **Shared utilities:** Utility functions for normalization and array comparison are in `src/screenplay/utilities/utils.ts`.
+- **Global hooks:** Cucumber hooks (`features/support/hooks.ts`) handle initialization, console error capture, and automatic screenshots on failures.
+- **Global timeout:** The global step timeout is set in `features/support/timeout.js` using ES Modules.
+- **Clear and separated scenarios:** Each Gherkin scenario validates a specific objective, following the challenge requirements and ensuring traceability.
 
-## Uso de tags para escenarios
+## Flexible Mobile Device Execution
 
-- Cada escenario tiene un tag único (`@CP001`, `@CP002`, etc.) para facilitar la ejecución selectiva y el reporte.
-- Puedes agregar más tags según tus necesidades, por ejemplo `@smoke`, `@regression`, etc.
+You can now specify the mobile device directly from the feature file for mobile scenarios.
 
-### Ejemplo de tags en los features
+Example:
+
+```feature
+Given the user opens the public homepage in mobile mode with device "iPhone X"
+```
+
+This allows you to easily change the emulated device (e.g., "iPhone 12", "iPhone 13 Pro Max") without modifying the code, just by changing the name in the feature.
+
+If the device does not exist, "iPhone X" will be used by default.
+
+**Note:** The step definition and Task already accept the device name as a parameter.
+
+## Using Tags for Scenarios
+
+- Each scenario has a unique tag (`@CP001`, `@CP002`, etc.) to facilitate selective execution and reporting.
+- You can add more tags as needed, such as `@smoke`, `@regression`, etc.
+
+### Example of tags in features
 
 ```feature
 @CP001
@@ -27,165 +43,101 @@ Scenario: Key elements are present on homepage
    ...
 ```
 
-## Ejecución selectiva por tags
+## Selective Execution by Tags
 
-- Para ejecutar solo un escenario/tag específico:
+- To run only a specific scenario/tag:
    ```
    npm test -- --tags "@CP002"
    ```
-- Para ejecutar varios tags:
+- To run multiple tags:
    ```
    npm test -- --tags "@CP001 or @CP003"
    ```
-- Para ejecutar escenarios que tengan múltiples tags:
+- To run scenarios that have multiple tags:
    ```
    npm test -- --tags "@smoke and @CP001"
    ```
 
-## Hooks condicionales por tag
+## Conditional Hooks by Tag
 
-Puedes ejecutar lógica especial en hooks solo para ciertos tags:
+You can run special logic in hooks only for certain tags:
 
 ```typescript
 import { Before } from "@cucumber/cucumber";
 
 Before({ tags: "@CP001" }, async function () {
-   // Esto solo corre para escenarios con @CP001
+   // This only runs for scenarios with @CP001
 });
 ```
 
-## Recomendaciones adicionales
+## Additional Recommendations
 
-- **No modifiques los step definitions para soportar tags:** Los tags se gestionan a nivel de Cucumber y no requieren cambios en los steps.
-- **Mantén los steps genéricos y reutilizables:** Así puedes combinarlos en diferentes escenarios y features.
-- **Actualiza los tags y la documentación si agregas nuevos escenarios.**
-- **Ejecuta siempre los tests con `npm test` y usa los tags para filtrar según lo que necesites validar.**
+- **Do not modify step definitions to support tags:** Tags are managed at the Cucumber level and do not require changes in steps.
+- **Keep steps generic and reusable:** This way you can combine them in different scenarios and features.
+- **Update tags and documentation if you add new scenarios.**
+- **Always run tests with `npm test` and use tags to filter according to what you need to validate.**
 
 # Smoke Test Creai (Playwright + Cucumber + Screenplay)
 
-## Herramientas y Lenguajes Usados
-- **Lenguaje principal:** TypeScript
-- **Framework de automatización:** Playwright
+## Tools and Languages Used
+- **Main language:** TypeScript
+- **Automation framework:** Playwright
 - **BDD:** Cucumber.js
-- **Patrón de diseño:** Screenplay Pattern
-- **Reportes:** Allure
+- **Design pattern:** Screenplay Pattern
+- **Reports:** Allure
 
-## Dependencias necesarias
-- Node.js 18+ (recomendado 20+)
-- npm (incluido con Node.js)
-- Google Chrome o Chromium (Playwright lo instala por defecto)
-- Allure Commandline (`npm install -g allure-commandline` para abrir reportes localmente)
+## Required Dependencies
+- Node.js 18+ (20+ recommended)
+- npm (included with Node.js)
+- Google Chrome or Chromium (Playwright installs it by default)
+- Allure Commandline (`npm install -g allure-commandline` to open reports locally)
 
-## Instalación del proyecto
-1. Clona el repositorio y entra a la carpeta del proyecto.
-2. Instala las dependencias y navegadores:
+## Project Setup
+1. Clone the repository and enter the project folder.
+2. Install dependencies and browsers:
    ```bash
    npm install
    npx playwright install
    ```
 
-## Ejecución de los tests y generación de reportes
-
-
-### 1. Ejecutar los tests y limpiar resultados previos
-```bash
-npm test
-```
-Esto ejecuta todos los tests, limpia los resultados previos y genera la carpeta `allure-results/`.
-
-### 2. Generar el reporte Allure manualmente
-```bash
-npm run allure:generate
-```
-Esto crea o actualiza la carpeta `allure-report/` a partir de los resultados.
-
-### 3. Abrir el reporte en el navegador
-```bash
-npm run allure:open
-```
-Esto abre el reporte HTML generado en tu navegador por defecto.
-
-> **Nota:** El reporte no se genera automáticamente al finalizar los tests. Debes ejecutar `npm run allure:generate` manualmente después de cada corrida.
-
-
-## Scripts disponibles
-- `npm test`: Ejecuta los tests, limpia resultados previos y genera la carpeta `allure-results/`. **No realiza reintentos automáticos** (`--retry 0` forzado en el script).
-- `npm run allure:generate`: (Re)genera el reporte HTML de Allure a partir de los resultados (debe ejecutarse manualmente tras cada test).
-- `npm run allure:open`: Abre el reporte generado en el navegador.
-
-## Estructura del proyecto
-- `features/`: Archivos feature y step definitions de Cucumber.
-- `src/screenplay/`: Implementación del patrón Screenplay (Actors, Tasks, Questions, UI, etc).
-- `allure-results/`: Resultados de las pruebas para Allure.
-- `allure-report/`: Reporte HTML generado por Allure.
-- `package.json`: Incluye dependencias clave como:
-   - `@cucumber/cucumber` (BDD)
-   - `playwright` y `@playwright/test` (automatización)
-   - `allure-cucumberjs` y `cucumberjs-allure-reporter` (reportes)
-   - `@serenity-js/core` y `@serenity-js/web` (Screenplay Pattern)
-   - `typescript`, `ts-node` (transpilación y ejecución TS)
-
-## Notas importantes
-- El formatter de Allure está configurado como `allure-cucumberjs/reporter` (compatible con Cucumber.js v8+).
-- Si tienes problemas con la instalación de dependencias, asegúrate de usar el registro público de npm y Node.js actualizado.
-- **No hay reintentos automáticos:** El script de test fuerza `--retry 0` para evitar duplicidad de escenarios en los reportes y asegurar un solo intento por ejecución.
-- **Limitación conocida:** No es posible mostrar el resultado/resumen de los tests en consola y generar el reporte Allure en una sola ejecución debido a una limitación del reporter. Usa `npm run test:console` para desarrollo (ver resultados en consola) y `npm test` para generar el reporte Allure.
-- Si necesitas debuggear, puedes agregar logs en los step definitions y usar screenshots automáticos en los hooks.
-
-## Referencias
-- [Documentación oficial Allure + CucumberJS](https://allurereport.org/docs/cucumberjs/)
-- [Playwright](https://playwright.dev/)
-- [Cucumber.js](https://github.com/cucumber/cucumber-js)
-- [Serenity/JS Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern.html)
-
----
-
----
-
-## Ejemplos de uso y debug
-
-
-### 🔹 Ejecutar smoke test y ver reporte Allure
-```bash
-npm test
-npm run allure:generate
-npm run allure:open
-```
-Esto ejecuta todos los tests, luego genera el reporte Allure y finalmente lo abre en el navegador.
-> **Importante:** El reporte debe generarse manualmente con `npm run allure:generate` después de cada corrida de tests.
-
-
-### 🔹 Debuggear un step definition
-- Agrega logs en tus steps para inspeccionar valores:
-   ```ts
-   console.log('Valor de menú extraído:', menuOptions);
-   ```
-- Usa `debugger;` para pausar la ejecución si corres con Node.js:
-   ```ts
-   debugger;
+3. (Optional) Install Allure globally to view reports:
+   ```bash
+   npm install -g allure-commandline
    ```
 
-### 🔹 Tomar screenshots automáticos en fallos
-Agrega un hook en Cucumber para capturar screenshots al fallar un escenario:
-```ts
-import { After } from '@cucumber/cucumber';
-import { page } from 'playwright';
+## Running the Tests
+- To run all tests:
+  ```bash
+  npm test
+  ```
+- To run only scenarios with a specific tag:
+  ```bash
+  npm test -- --tags "@CP001"
+  ```
+- To run multiple tags:
+  ```bash
+  npm test -- --tags "@CP001 or @CP002"
+  ```
 
-After(async function (scenario) {
-   if (scenario.result?.status === 'failed') {
-      await page.screenshot({ path: `screenshots/${scenario.pickle.name}.png` });
-   }
-});
-```
+## Generating and Viewing Reports
+1. After running tests, generate the Allure report:
+   ```bash
+   npm run allure:report
+   ```
+2. Open the report in your browser:
+   ```bash
+   npm run allure:open
+   ```
 
-## 🟦 Buenas prácticas y recomendaciones
+## Project Structure
+- `features/`: Gherkin feature files, step definitions, and support code.
+- `src/screenplay/`: Screenplay Pattern implementation (Tasks, Questions, Abilities, UI, etc.).
+- `package.json`: Project dependencies and scripts.
+- `playwright.config.ts`: Playwright configuration.
+- `tsconfig.json`: TypeScript configuration.
 
-- Mantén los selectores desacoplados y robustos (usa `data-testid` o clases estables).
-- Prefiere aserciones manuales y logs claros para depurar.
-- Usa el patrón Screenplay para separar responsabilidades y facilitar el mantenimiento.
-- Documenta cualquier workaround o limitación en este README.
-- Si agregas nuevas dependencias, actualiza este archivo y los scripts de npm.
-
----
-
-Creado por Mario Alejandro Benítez Orozco para el equipo Creai · 2025
+## Notes
+- All selectors and error messages are centralized for maintainability.
+- Mobile device emulation is flexible and can be set from the feature file.
+- Use tags to organize, filter, and report on your scenarios.
+- Follow the Screenplay Pattern for scalable, maintainable test code.
