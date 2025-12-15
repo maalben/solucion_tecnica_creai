@@ -1,5 +1,17 @@
 # Best Practices, Organization, and Selective Execution
 
+---
+
+# 📺 [Watch the explanatory video of this technical challenge solution](https://www.youtube.com/watch?v=Tux3sMm9Irg)
+
+---
+
+## Additional Resources
+
+- In the `Documentos_Anexos` folder, you will find a document with some findings detected on the main page.
+
+---
+
 ## Organization and Best Practices
 - **Screenplay Pattern:** All interactions and validations are encapsulated in reusable Tasks and Questions, making tests easy to maintain and extend.
 - **Centralized selectors and messages:** Selectors and error messages are stored in constants files (`src/screenplay/utilities/Constants.ts` and `src/screenplay/ui/HomePage.ts`), avoiding hardcoded values.
@@ -136,8 +148,11 @@ Before({ tags: "@CP001" }, async function () {
 - `playwright.config.ts`: Playwright configuration.
 - `tsconfig.json`: TypeScript configuration.
 
+
 ## Notes
 - All selectors and error messages are centralized for maintainability.
 - Mobile device emulation is flexible and can be set from the feature file.
 - Use tags to organize, filter, and report on your scenarios.
 - Follow the Screenplay Pattern for scalable, maintainable test code.
+
+
