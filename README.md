@@ -4,7 +4,11 @@
 
 # 📺 [Watch the explanatory video of this technical challenge solution](https://www.youtube.com/watch?v=Tux3sMm9Irg)
 
-[![Video Title](https://img.youtube.com/vi/Tux3sMm9Irg/0.jpg)](https://www.youtube.com/watch?v=Tux3sMm9Irg)
+<p align="center">
+   <a href="https://www.youtube.com/watch?v=Tux3sMm9Irg">
+      <img src="https://img.youtube.com/vi/Tux3sMm9Irg/0.jpg" alt="Video Title">
+   </a>
+</p>
 
 ---
 
