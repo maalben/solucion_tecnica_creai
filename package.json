@@ -1,0 +1,26 @@
+{
+  "name": "creai-smoke-playwright-screenplay-bdd",
+  "version": "1.0.0",
+  "private": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "rm -rf allure-results allure-report && npx cucumber-js --retry 0 --require-module ts-node/register --require features/support/timeout.js --require features/support/TestEnvironment.ts --require features/support/hooks.ts --require features/step_definitions/**/*.ts --format allure-cucumberjs/reporter",
+    "allure:generate": "npx allure generate -o allure-report allure-results",
+    "allure:open": "npx allure open allure-report"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.0.0",
+    "@playwright/test": "^1.57.0",
+    "@types/cucumber": "^6.0.1",
+    "@types/node": "^22.0.0",
+    "allure-cucumberjs": "^3.4.3",
+    "cucumberjs-allure-reporter": "^1.0.3",
+    "playwright": "^1.48.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@serenity-js/core": "^3.37.0",
+    "@serenity-js/web": "^3.37.0"
+  }
+}
