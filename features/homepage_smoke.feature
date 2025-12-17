@@ -18,20 +18,21 @@ Feature: Smoke Test - Public Creai Homepage
       | About us        |
       | Knowledge hub   |
     And the homepage cards section should display the following titles:
-      | Transforming customer support with a bespoke AI Logistics Agent                |
-      | Streamlining operations and maximizing revenue with an AI Travel Agent         |
-      | Accelerating growth through seamless integration and strategic AI innovation   |
+      | Centralizing institutional intelligence to optimize investment decisioning               |
+      | Accelerating insurance operations through AI-powered compliance and orchestration        |
+      | Accelerating growth through seamless integration and strategic AI innovation             |
       | Transforming fleet operations through intelligent automation and predictive intelligence |
-
+    
   @CP003
   Scenario: Navigation - Success stories menu
     Given the user opens the public homepage
     When the user clicks on the "Success stories" menu option
     Then the cards section should display the following titles:
-      | Transforming customer support with a bespoke AI Logistics Agent                |
-      | Streamlining operations and maximizing revenue with an AI Travel Agent         |
-      | Accelerating growth through seamless integration and strategic AI innovation   |
+      | Centralizing institutional intelligence to optimize investment decisioning               |
+      | Accelerating insurance operations through AI-powered compliance and orchestration        |
+      | Accelerating growth through seamless integration and strategic AI innovation             |
       | Transforming fleet operations through intelligent automation and predictive intelligence |
+      | Streamlining operations and maximizing revenue with an AI Travel Agent                   |
 
   @CP004
   Scenario: Mobile viewport - key elements visible

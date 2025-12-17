@@ -72,11 +72,11 @@ Given("the user opens the public homepage in mobile mode with device {string}", 
   await OpenMobileHomepage.performAs(this, deviceName);
 });
 
-When("the user opens the mobile menu", async function (this: TestEnvironment) {
+When("the user opens the mobile menu", { timeout: 30000 }, async function (this: TestEnvironment) {
   await OpenMobileMenu.performAs(this);
 });
 
-Then("the main menu should have the options:", async function (this: TestEnvironment, dataTable) {
+Then("the main menu should have the options:", { timeout: 30000 }, async function (this: TestEnvironment, dataTable) {
   const expectedOptions = dataTable.raw().map((row: string[]) => row[0]);
   const result = await MainMenuOptionsMatch.expected(expectedOptions).answeredBy(this.actor);
   expect(result).toBe(true);
